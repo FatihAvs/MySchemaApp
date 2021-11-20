@@ -1,0 +1,293 @@
+﻿@model MySchemaApp.ViewModels.MySchemaCheckedModel
+@using System.Collections.Generic;
+
+
+@{
+    ViewData["Title"] = "SchemaChecked";
+    var schemaName = TempData["b"] as string;
+}
+
+
+
+
+
+<style>
+
+
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 2.5%;
+}
+
+input,
+span,
+label,
+textarea {
+  font-family: 'Ubuntu', sans-serif;
+  display: block;
+  margin: 10px;
+  padding: 5px;
+  border: none;
+  font-size: 22px;
+}
+
+textarea:focus,
+input:focus {
+  outline: 0;
+}
+/* Question */
+
+input.question,
+textarea.question {
+  font-size: 48px;
+  font-weight: 300;
+  border-radius: 2px;
+  margin: 0;
+  border: none;
+  width: 80%;
+  background: rgba(0, 0, 0, 0);
+  transition: padding-top 0.2s ease, margin-top 0.2s ease;
+  overflow-x: hidden; /* Hack to make "rows" attribute apply in Firefox. */
+}
+/* Underline and Placeholder */
+
+input.question + label,
+textarea.question + label {
+  display: block;
+  position: relative;
+  white-space: nowrap;
+  padding: 0;
+  margin: 0;
+  width: 10%;
+  border-top: 1px solid red;
+  -webkit-transition: width 0.4s ease;
+  transition: width 0.4s ease;
+  height: 0px;
+}
+
+input.question:focus + label,
+textarea.question:focus + label {
+  width: 80%;
+}
+
+input.question:focus,
+input.question:valid {
+  padding-top: 35px;
+}
+
+textarea.question:valid,
+textarea.question:focus {
+  margin-top: 35px;
+}
+
+input.question:focus + label > span,
+input.question:valid + label > span {
+  top: -100px;
+  font-size: 22px;
+  color: #333;
+}
+
+textarea.question:focus + label > span,
+textarea.question:valid + label > span {
+  top: -150px;
+  font-size: 22px;
+  color: #333;
+}
+
+input.question:valid + label,
+textarea.question:valid + label {
+  border-color: green;
+}
+
+input.question:invalid,
+textarea.question:invalid {
+  box-shadow: none;
+}
+
+input.question + label > span,
+textarea.question + label > span {
+  font-weight: 300;
+  margin: 0;
+  position: absolute;
+  color: #8F8F8F;
+  font-size: 48px;
+  top: -66px;
+  left: 0px;
+  z-index: -1;
+  -webkit-transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+  transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+}
+
+
+
+
+
+
+
+
+
+-webkit-keyframes appear {
+  100% {
+    opacity: 1;
+  }
+}
+
+keyframes appear {
+  100% {
+    opacity: 1;
+  }
+}
+
+
+
+
+
+
+    .checkbox-list {
+        color: #fff;
+        background: linear-gradient(#3a7bd5, #3a6073);
+        padding: 25px;
+        border-radius: 10px;
+    }
+
+    .checkbox {
+        border-bottom: 1px dashed rgba(255,255,255,0.5);
+        padding: 5px 5px 9px 5px;
+        margin: 0 0 10px;
+        display: block;
+    }
+
+        .checkbox input[type=checkbox] {
+            margin: 0;
+            visibility: hidden;
+            left: 1px;
+            top: 1px;
+        }
+
+        .checkbox label {
+            font-size: 13.9px;
+            line-height: 20px;
+            padding-left: 35px;
+            margin: 0;
+            display: block;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease 0s;
+        }
+
+            .checkbox label:before,
+            .checkbox label:after {
+                content: "";
+                width: 20px;
+                height: 20px;
+                border: 3px solid rgba(255,255,255,0.5);
+                border-radius: 4px;
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                transition: all 0.25s;
+            }
+
+            .checkbox label:after {
+                height: 10px;
+                width: 16px;
+                border-radius: 0 0 0 4px;
+                border: 5px solid #fff;
+                border-top: none;
+                border-right: none;
+                opacity: 0;
+                transform: rotate(-45deg);
+                top: 15px;
+                left: 6px;
+            }
+
+        .checkbox input[type=checkbox]:checked + label {
+            font-weight: 600;
+        }
+
+            .checkbox input[type=checkbox]:checked + label:before {
+                opacity: 0;
+                top: -10px;
+            }
+
+            .checkbox input[type=checkbox]:checked + label:after {
+                opacity: 1;
+                top: 6px;
+            }
+
+</style>
+
+
+
+
+@if (TempData["a"] == null)
+{
+    <a style="margin-left:45%;margin-top:38px;font-size:1.4rem" href="@Url.Action("HangiSchema", "Member")" type="button" class="btn btn-info">Şema Seçimine Git</a>
+}
+else
+{
+    <br />
+    <hr />
+    <a href="@Url.Action("HangiSchema", "Member")" type="button" class="btn btn-secondary">Şema Seçimine Git</a>
+    
+
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="SchemaChecked" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <div class="checkbox-list">
+                        <div class="checkbox">
+                            <input type="checkbox" id="@schemaName" name="schemaName" value="@schemaName" checked="@(1==1)" />
+                            <label for="@schemaName">@schemaName</label>
+                        </div>
+                    </div>
+                    </div>
+                <div class="form-group">
+
+                  
+                  
+             
+                        <input type="text" name="mySchemaName" class="question" id="mySchemaName" required autocomplete="off" />
+                        <label for="mySchemaName"><span>Kaydınıza Bir İsim Verin</span></label>
+
+
+
+
+
+
+
+
+                </div>
+                    <div class="form-group">
+                        <div class="checkbox-list">
+                            @foreach (var str in (IEnumerable<string>)TempData["a"])
+                            {
+
+                                <div class="checkbox">
+                                    <input type="checkbox" id="@str" name="areChecked" value="@str" checked="@(1 == 0)">
+                                    <label for="@str">@str</label>
+                                </div>
+
+                            }
+
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Kaydet" class="btn btn-primary" />
+                    </div>
+</form>
+        </div>
+    </div>
+
+}

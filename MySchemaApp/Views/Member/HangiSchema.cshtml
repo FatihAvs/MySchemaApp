@@ -1,0 +1,161 @@
+﻿@model MySchemaApp.Models.SchemaModel
+
+@{
+    Layout = null;
+    ViewData["Title"] = "HangiSchema";
+
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+
+<style>
+
+    body {
+        font-family: sans-serif;
+        font-weight: normal;
+       
+        color: #271f1f;
+        background-color: #eee;
+    }
+
+    form {
+        margin: 50px 0;
+    }
+
+    #myDiv {
+        clear: both;
+        margin: 0 10px;
+        display: block;
+    }
+
+    label {
+        width: 600px;
+        border-radius: 7px;
+        border: 1px solid #D1D3D4
+    }
+
+    /* hide input */
+    input.radio:empty {
+        margin-left: -999px;
+    }
+
+        /* style label */
+        input.radio:empty ~ label {
+            position: relative;
+            float: left;
+            line-height: 2.1em;
+            text-indent: 3.25em;
+            margin-top: 0.1em;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            input.radio:empty ~ label:before {
+                position: absolute;
+                display: block;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                content: '';
+                width: 2.5em;
+                background: #D1D3D4;
+                border-radius: 3px 0 0 3px;
+            }
+
+    /* toggle hover */
+    input.radio:hover:not(:checked) ~ label:before {
+        content: '\2714';
+        text-indent: .9em;
+        color: #C2C2C2;
+    }
+
+    input.radio:hover:not(:checked) ~ label {
+        color: #888;
+    }
+
+    /* toggle on */
+    input.radio:checked ~ label:before {
+        content: '\2714';
+        text-indent: .9em;
+        color: #9CE2AE;
+        background-color: #4DCB6D;
+    }
+
+    input.radio:checked ~ label {
+        color: #777;
+    }
+
+    /* radio focus */
+    input.radio:focus ~ label:before {
+        box-shadow: 0 0 0 3px #999;
+    }
+
+
+    #myLabel {
+        font-size: 15px;
+        color: darkred;
+    }
+
+   
+</style>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Index","Home")">Ana Sayfa <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Hakkında","Home")">Hakkında</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("HangiSchema","Member")">Şema Seçimi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("GetSchemas","Member")">Şemalarımı Göster</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="HangiSchema">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="margin-left:10%">
+                <div class="alert alert-primary" role="alert">
+                   Lütfen Şema Türünü Seçiniz.
+                </div>
+               
+                
+                @foreach (var schema in Model.Schemas)
+                {
+
+                <div id="myDiv">
+                    <input class="radio" type="radio" name="Schema" value="@schema" id="@schema" checked />
+                    <label for="@schema">@schema</label>
+                </div>
+
+                }
+
+                <span asp-validation-for="Schema" class="text-danger"></span>
+
+            </div>
+            <div class="form-group" style="margin-left:10%" >
+                <input id="myButton" type="submit" value="Seç" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

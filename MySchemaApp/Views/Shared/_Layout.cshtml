@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MySchemaApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+   
+</head>
+<body>
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+       
+
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="@Url.Action("Index","Home")">Ana Sayfa <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Hakkında","Home")">Hakkında</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("HangiSchema","Member")">Şema Seçimi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("GetSchemas","Member")">Şemalarımı Göster</a>
+                </li>
+
+
+            </ul>
+        </div>
+    </nav>
+    <main>
+        @RenderBody()
+    </main>
+
+</body>
+</html>
